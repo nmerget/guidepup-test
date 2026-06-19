@@ -19,17 +19,11 @@ const config: PlaywrightTestConfig = {
   },
   projects: isMacOS
     ? [
-        {
-          name: "voiceover",
-          use: { ...devices["Desktop Chrome"], headless: false },
-          testMatch: /voiceover\.spec\.ts/,
-        },
       ]
     : [
         {
           name: "nvda",
           use: { ...devices["Desktop Chrome"], headless: false },
-          testMatch: /nvda\.spec\.ts/,
         },
       ],
 };

@@ -5,8 +5,8 @@ const translations: Record<string, string[]> = {
   Test: ["Test"],
 };
 
-test.describe("Input field - NVDA", () => {
-  test("I can type into the input with NVDA", async ({ page, nvda }) => {
+test.describe("NVDA", () => {
+  test("Failing", async ({ page, nvda }) => {
     await page.goto("/", { waitUntil: "load" });
 
     const input = page.locator("#test");

@@ -1,30 +1,29 @@
-import { voiceOverTest as test } from "@guidepup/playwright";
+import { nvdaTest as test } from "@guidepup/playwright";
 import { expect } from "@playwright/test";
 
 const translations: Record<string, string[]> = {
   Test: ["Test"],
 };
 
-test.describe("Input field - VoiceOver", () => {
-  test("I can type into the input with VoiceOver", async ({
-    page,
-    voiceOver,
-  }) => {
+test.use({ nvdaStartOptions: { capture: true } });
+
+test.describe("With capture", () => {
+  test("Test", async ({ page, nvda }) => {
     await page.goto("/", { waitUntil: "load" });
 
     const input = page.locator("#test");
     await input.waitFor();
 
-    await voiceOver.navigateToWebContent();
+    await nvda.navigateToWebContent();
 
-    await voiceOver.type("Test");
-    await voiceOver.press("Command+A");
-    await voiceOver.press("Delete");
-    await voiceOver.type("Test");
+    await nvda.type("Test");
+    await nvda.press("Control+A");
+    await nvda.press("Delete");
+    await nvda.type("Test");
 
     await expect(input).toHaveValue("Test");
 
-    const phraseLog: string[] = await voiceOver.spokenPhraseLog();
+    const phraseLog: string[] = await nvda.spokenPhraseLog();
     let snapshot = JSON.stringify(phraseLog);
 
     for (const [key, values] of Object.entries(translations)) {
